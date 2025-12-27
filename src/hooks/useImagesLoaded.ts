@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useImagesLoaded(imageUrls: string[]) {
+export function useImagesLoaded(imageUrls: (string | JSX.Element)[]) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -8,6 +8,11 @@ export function useImagesLoaded(imageUrls: string[]) {
     const imagePromises = imageUrls.map(
       (url) =>
         new Promise<void>((resolve, reject) => {
+          // Skip non-string items (like JSX elements)
+          if (typeof url !== 'string') {
+            resolve();
+            return;
+          }
           const img = new Image();
           img.src = url;
           img.onload = () => resolve();
