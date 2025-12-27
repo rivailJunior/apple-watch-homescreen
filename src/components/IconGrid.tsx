@@ -1,20 +1,17 @@
 'use client';
 
-import { motion, MotionValue } from 'motion/react';
+import { motion } from 'motion/react';
 import { GRID_CONFIG } from '../config/gridConfig';
 import IconCircle from './IconCircle';
-import type { JSX } from 'react';
+import type { MotionGridProps } from '../types/MotionGrid.types';
 
-type Circle = { x: number; y: number };
-
-interface IconGridProps {
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  circles: Circle[];
-  icons: (string | JSX.Element)[];
-}
-
-export default function IconGrid({ x, y, circles, icons }: IconGridProps) {
+export default function IconGrid({
+  x,
+  y,
+  circles,
+  icons,
+  onClick,
+}: MotionGridProps) {
   return (
     <motion.div
       className='absolute flex items-center justify-center h-[10000px] w-[10000px] z-10'
@@ -38,6 +35,7 @@ export default function IconGrid({ x, y, circles, icons }: IconGridProps) {
             x={x}
             y={y}
             icon={icons[index % icons.length]}
+            onClick={onClick}
           />
         ))}
       </div>

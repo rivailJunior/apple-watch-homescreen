@@ -1,15 +1,7 @@
 'use client';
 
-import { motion, MotionValue, useTransform } from 'motion/react';
-
-interface IconCircleProps {
-  index: number;
-  circleX: number;
-  circleY: number;
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  icon: string | React.JSX.Element | undefined;
-}
+import { motion, useTransform } from 'motion/react';
+import type { IconCircleProps } from '../types/MotionGrid.types';
 
 export default function IconCircle({
   index,
@@ -18,6 +10,7 @@ export default function IconCircle({
   x,
   y,
   icon,
+  onClick,
 }: IconCircleProps) {
   const distance = useTransform([x, y], (values: number[]) => {
     const [latestX, latestY] = values;
@@ -33,6 +26,7 @@ export default function IconCircle({
     <motion.div
       className='size-24 rounded-full absolute -left-12 -top-12 flex items-center justify-center shadow-lg overflow-hidden'
       style={{ x: circleX, y: circleY, scale, opacity }}
+      onClick={onClick}
     >
       {typeof icon === 'string' ? (
         <img

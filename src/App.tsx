@@ -1,15 +1,17 @@
 'use client';
 
-import { useMotionValue, motion } from 'motion/react';
-import IconGrid from './components/IconGrid';
+import { useMotionValue } from 'motion/react';
 import { GRID_CONFIG } from './config/gridConfig';
 import { generateCircles } from './utils/generateCircles';
 import { icons } from './config/icons';
 import { useImagesLoaded } from './hooks/useImagesLoaded';
+import { MotionGrid } from './components/MotionGrid';
 
-const testElement = ({ label = 'teste' }: { label: string }) => (
+const testElement = ({ label = 'Custom' }: { label: string }) => (
   <div
     className={`w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center text-white`}
+    data-value={label}
+    aria-label={`Test element ${label}`}
   >
     {label}
   </div>
@@ -18,13 +20,13 @@ const testElement = ({ label = 'teste' }: { label: string }) => (
 export default function App() {
   const testIcons = [
     ...icons,
-    testElement({ label: 'Teste 1' }),
-    testElement({ label: 'Teste 2' }),
-    testElement({ label: 'Teste 3' }),
-    testElement({ label: 'Teste 4' }),
-    testElement({ label: 'Teste 5' }),
-    testElement({ label: 'Teste 6' }),
-    testElement({ label: 'Teste 7' }),
+    testElement({ label: 'A' }),
+    testElement({ label: 'B' }),
+    testElement({ label: 'C' }),
+    testElement({ label: 'D' }),
+    testElement({ label: 'E' }),
+    testElement({ label: 'F' }),
+    testElement({ label: 'G' }),
   ].sort(() => Math.random() - 0.5);
 
   const x = useMotionValue(0);
@@ -40,14 +42,13 @@ export default function App() {
           <p className='text-sm text-red-400'>Loading icons...</p>
         </div>
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className='relative flex items-center justify-center h-96 max-sm:h-full w-72 max-sm:w-full rounded-[64px] border-2 max-sm:border-0 border-red-800 overflow-hidden'
-        >
-          <IconGrid x={x} y={y} circles={circles} icons={testIcons} />
-        </motion.div>
+        <MotionGrid
+          x={x}
+          y={y}
+          circles={circles}
+          icons={testIcons}
+          onClick={(value) => console.log('Icon clicked', value)}
+        />
       )}
     </div>
   );
