@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { motion, MotionValue, useTransform } from "motion/react";
+import { motion, useTransform } from 'motion/react';
+import type { IconCircleProps } from '../types/MotionGrid.types';
 
-interface IconCircleProps {
-  index: number;
-  circleX: number;
-  circleY: number;
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  icon: string;
-}
-
-export default function IconCircle({ index, circleX, circleY, x, y, icon }: IconCircleProps) {
+export default function IconCircle({
+  index,
+  circleX,
+  circleY,
+  x,
+  y,
+  icon,
+  onClick,
+}: IconCircleProps) {
   const distance = useTransform([x, y], (values: number[]) => {
     const [latestX, latestY] = values;
     const dx = -latestX - circleX;
@@ -24,14 +24,19 @@ export default function IconCircle({ index, circleX, circleY, x, y, icon }: Icon
 
   return (
     <motion.div
-      className="size-24 rounded-full absolute -left-12 -top-12 flex items-center justify-center shadow-lg overflow-hidden"
+      className='size-24 rounded-full absolute -left-12 -top-12 flex items-center justify-center shadow-lg overflow-hidden'
       style={{ x: circleX, y: circleY, scale, opacity }}
+      onClick={onClick}
     >
-      <img
-        src={icon}
-        alt={`icon-${index}`}
-        className="w-full h-full object-contain pointer-events-none"
-      />
+      {typeof icon === 'string' ? (
+        <img
+          src={icon}
+          alt={`icon-${index}`}
+          className='w-full h-full object-contain pointer-events-none'
+        />
+      ) : (
+        icon ?? null
+      )}
     </motion.div>
   );
 }
