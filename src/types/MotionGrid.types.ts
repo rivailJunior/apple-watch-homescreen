@@ -1,7 +1,7 @@
 import { MotionValue } from 'motion/react';
-import type { JSX } from 'react';
+import type { JSX, MouseEvent } from 'react';
 
-type onClickHandler = (value: unknown) => void;
+type onClickHandler = (value: MouseEvent<HTMLDivElement>) => void;
 type iconType = string | JSX.Element | undefined;
 
 export interface MotionGridProps {
@@ -9,7 +9,7 @@ export interface MotionGridProps {
   y: MotionValue<number>;
   circles: { x: number; y: number }[];
   icons: iconType[];
-  onClick?: onClickHandler;
+  onClick: onClickHandler;
 }
 
 export interface IconCircleProps {
@@ -19,5 +19,5 @@ export interface IconCircleProps {
   x: MotionValue<number>;
   y: MotionValue<number>;
   icon: iconType;
-  onClick?: onClickHandler;
+  onClick: onClickHandler;
 }
