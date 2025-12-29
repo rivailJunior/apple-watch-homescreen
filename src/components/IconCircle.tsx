@@ -27,6 +27,7 @@ export default function IconCircle({
       className='size-24 rounded-full absolute -left-12 -top-12 flex items-center justify-center shadow-lg overflow-hidden'
       style={{ x: circleX, y: circleY, scale, opacity }}
       onClick={onClick}
+      data-value={typeof icon === 'string' ? icon : undefined}
     >
       {typeof icon === 'string' ? (
         <img

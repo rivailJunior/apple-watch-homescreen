@@ -5,28 +5,18 @@ import { GRID_CONFIG } from './config/gridConfig';
 import { generateCircles } from './utils/generateCircles';
 import { icons } from './config/icons';
 import { useImagesLoaded } from './hooks/useImagesLoaded';
-import { MotionGrid } from './components/MotionGrid';
-
-const testElement = ({ label = 'Custom' }: { label: string }) => (
-  <div
-    className={`w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center text-white`}
-    data-value={label}
-    aria-label={`Test element ${label}`}
-  >
-    {label}
-  </div>
-);
+import { MotionGrid, CustomIcon } from './components';
 
 export default function App() {
   const testIcons = [
     ...icons,
-    testElement({ label: 'A' }),
-    testElement({ label: 'B' }),
-    testElement({ label: 'C' }),
-    testElement({ label: 'D' }),
-    testElement({ label: 'E' }),
-    testElement({ label: 'F' }),
-    testElement({ label: 'G' }),
+    CustomIcon({ label: 'A' }),
+    CustomIcon({ label: 'B' }),
+    CustomIcon({ label: 'C' }),
+    CustomIcon({ label: 'D' }),
+    CustomIcon({ label: 'E' }),
+    CustomIcon({ label: 'F' }),
+    CustomIcon({ label: 'G' }),
   ].sort(() => Math.random() - 0.5);
 
   const x = useMotionValue(0);
@@ -47,7 +37,10 @@ export default function App() {
           y={y}
           circles={circles}
           icons={testIcons}
-          onClick={(value) => console.log('Icon clicked', value)}
+          onClick={(value) => {
+            const target = value.target as HTMLElement;
+            console.log('Icon clicked', target?.dataset.value ?? 'unknown');
+          }}
         />
       )}
     </div>
