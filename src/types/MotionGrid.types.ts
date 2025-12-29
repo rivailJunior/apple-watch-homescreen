@@ -19,5 +19,5 @@ export interface IconCircleProps {
   x: MotionValue<number>;
   y: MotionValue<number>;
   icon: iconType;
-  onClick: onClickHandler;
+  onClick?: onClickHandler;
 }
